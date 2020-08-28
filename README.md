@@ -1,3 +1,5 @@
-# hespress-home-screen-react-native
+# Functionalities
 
-Cloning Hespress News App Home Screen Using React Native
+- Pull to refresh
+- Infinite Scroll
+- API pagination
