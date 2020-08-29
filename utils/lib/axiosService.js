@@ -8,5 +8,4 @@ const axiosService = axios.create({
   },
 });
 
-// singleton instance
 export default axiosService;

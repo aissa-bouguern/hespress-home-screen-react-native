@@ -4,7 +4,6 @@ import {FlatList, View, ActivityIndicator} from 'react-native';
 
 import ArticlePreviewCard from './components/ArticlePreviewCard';
 
-// axios service
 import axiosService from './utils/lib/axiosService';
 
 export default class AllBeersScreen extends Component {
@@ -32,9 +31,8 @@ export default class AllBeersScreen extends Component {
       })
       .then((response) => {
         const fetchedData = response.data;
-        console.log(fetchedData);
 
-        this.setState((prevState, nextProps) => ({
+        this.setState(() => ({
           data:
             page === 1
               ? Array.from(fetchedData)
@@ -45,7 +43,6 @@ export default class AllBeersScreen extends Component {
         }));
       })
       .catch((error) => {
-        console.log(error);
         this.setState({
           error,
           loading: false,
@@ -57,7 +54,7 @@ export default class AllBeersScreen extends Component {
 
   _handleLoadMore = () => {
     this.setState(
-      (prevState, nextProps) => ({
+      (prevState) => ({
         page: prevState.page + 1,
         loadingMore: true,
       }),
@@ -100,15 +97,15 @@ export default class AllBeersScreen extends Component {
       <FlatList
         data={this.state.data}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({item}) => {
-          return (
-            <ArticlePreviewCard
-              title={item.title}
-              imageUrl={item.imageUrl}
-              category={item.category}
-            />
-          );
-        }}
+        renderItem={({item}) => (
+          <ArticlePreviewCard
+            title={item.title}
+            imageUrl={item.imageUrl}
+            category={item.category}
+            nbComments={item.nbComments}
+            publishedAt={item.createdAt}
+          />
+        )}
         onEndReached={this._handleLoadMore}
         onEndReachedThreshold={0.5}
         ListFooterComponent={this._renderFooter}

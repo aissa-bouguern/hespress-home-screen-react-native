@@ -1,27 +1,17 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-
-import GradientOverlay from '../GradientOverlay';
+import {Text} from 'react-native';
 
 const Title = ({children}) => (
-  <View
+  <Text
     style={{
-      position: 'relative',
-      paddingHorizontal: 10,
-      paddingBottom: 15,
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: 'white',
+      lineHeight: 26,
+      zIndex: 1,
     }}>
-    <Text
-      style={{
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
-        lineHeight: 26,
-        zIndex: 1,
-      }}>
-      {children}
-    </Text>
-    <GradientOverlay />
-  </View>
+    {children}
+  </Text>
 );
 
 export default Title;

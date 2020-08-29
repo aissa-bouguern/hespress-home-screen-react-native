@@ -1,7 +1,5 @@
 import React from 'react';
 
-// components
-import Title from '../Title';
 import {
   View,
   Dimensions,
@@ -10,12 +8,22 @@ import {
   ImageBackground,
 } from 'react-native';
 
+import dayjs from 'dayjs';
+
+var relativeTime = require('dayjs/plugin/relativeTime');
+
+import Title from '../Title';
+
+import GradientOverlay from '../GradientOverlay';
+
+dayjs.extend(relativeTime);
+
 const width = Dimensions.get('window').width;
 
 const CardContainer = ({children}) => (
   <View
     style={{
-      height: 300,
+      height: 280,
       width: width - 16,
       left: 8,
       marginTop: 8,
@@ -46,12 +54,18 @@ const CategoryContainer = ({children}) => (
 );
 
 const PostMetasContainer = ({children}) => (
-  <View style={{paddingHorizontal: 10, paddingVertical: 8}}>
+  <View style={{paddingVertical: 8, zIndex: 1}}>
     <Text style={{color: 'white', fontSize: 16}}>{children}</Text>
   </View>
 );
 
-const ArticlePreviewCard = ({title, imageUrl, category}) => {
+const ArticlePreviewCard = ({
+  title,
+  imageUrl,
+  category,
+  nbComments,
+  publishedAt,
+}) => {
   return (
     <CardContainer>
       <ImageBackground
@@ -59,8 +73,20 @@ const ArticlePreviewCard = ({title, imageUrl, category}) => {
         resizeMode="cover"
         style={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-end'}}>
         <CategoryContainer>{category}</CategoryContainer>
-        <PostMetasContainer>4 hours ago - 30 comments</PostMetasContainer>
-        <Title color="#fff">{title}</Title>
+
+        <View
+          style={{
+            position: 'relative',
+            paddingHorizontal: 10,
+            paddingBottom: 15,
+          }}>
+          <PostMetasContainer>
+            {dayjs(publishedAt).fromNow()} - {nbComments}{' '}
+            {nbComments <= 1 ? 'comment' : 'comments'}
+          </PostMetasContainer>
+          <Title color="#fff">{title}</Title>
+          <GradientOverlay />
+        </View>
       </ImageBackground>
     </CardContainer>
   );
