@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
-    "glamorous-native": "^2.0.0",
+    "dayjs": "^1.8.34",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-linear-gradient": "^2.5.6"
